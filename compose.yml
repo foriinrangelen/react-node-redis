@@ -1,0 +1,24 @@
+
+services:
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - zxc:/data  # Redis 데이터 저장을 위한 볼륨 마운트
+  web1:
+    restart: on-failure
+    build: ./web
+    hostname: web1
+    ports:
+      - '5000:5000'
+  web2:
+    restart: on-failure
+    build: ./react-count-app
+    ports:
+      - '80:3000'
+volumes:
+  zxc:  # Redis 데이터 저장을 위한 볼륨 정의
+    external: true
+
+# external: true 기존에 있는 volume 사용
